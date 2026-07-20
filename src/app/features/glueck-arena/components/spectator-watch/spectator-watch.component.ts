@@ -32,7 +32,7 @@ import { Subscription } from 'rxjs';
 
       <div class="sw__waiting" *ngIf="!battleRound && phase !== 'finished'">
         <mat-spinner diameter="36"></mat-spinner>
-        <p>Connecting to battle…</p>
+        <p>Povezivanje sa bitkom…</p>
       </div>
 
       <div class="sw__engine" *ngIf="battleRound && room">
@@ -44,12 +44,12 @@ import { Subscription } from 'rxjs';
           [round]="battleRound" [localScore]="0" [answerResult]="null"></app-flapjugation-mp>
         <app-whackawort-mp *ngIf="room.gameType === 'whackawort'"
           [round]="battleRound" [localScore]="0" [answerResult]="null"></app-whackawort-mp>
-        <p class="sw__readonly"><mat-icon>visibility</mat-icon> Read-only spectator view</p>
+        <p class="sw__readonly"><mat-icon>visibility</mat-icon> Prikaz za gledaoce (samo za čitanje)</p>
       </div>
 
       <div class="sw__results" *ngIf="phase === 'finished'">
-        <h2>Battle finished</h2>
-        <div *ngFor="let r of results">{{ r.rank }}. {{ r.name }} — {{ r.score }} pts</div>
+        <h2>Bitka je završena</h2>
+        <div *ngFor="let r of results">{{ r.rank }}. {{ r.name }} — {{ r.score }} bod.</div>
       </div>
     </div>
   `,

@@ -13,14 +13,14 @@ import { NotificationService } from '../../../../services/notification.service';
   template: `
     <div class="ch">
       <button mat-icon-button routerLink="/glueck-arena"><mat-icon>arrow_back</mat-icon></button>
-      <h1><mat-icon>class</mat-icon> Classrooms</h1>
+      <h1><mat-icon>class</mat-icon> Učionice</h1>
 
       <mat-card>
-        <mat-card-title>Join with class code</mat-card-title>
+        <mat-card-title>Pridruži se kodom odeljenja</mat-card-title>
         <mat-card-content>
-          <mat-form-field appearance="outline"><mat-label>Code</mat-label>
+          <mat-form-field appearance="outline"><mat-label>Kod</mat-label>
             <input matInput [(ngModel)]="joinCode"></mat-form-field>
-          <button mat-raised-button (click)="join()">Join</button>
+          <button mat-raised-button (click)="join()">Pridruži se</button>
         </mat-card-content>
       </mat-card>
 
@@ -47,8 +47,8 @@ export class ClassroomHubComponent implements OnInit {
   }
   join() {
     this.svc.joinClassroom(this.joinCode).subscribe({
-      next: () => { this.notify.success('Joined classroom!'); this.ngOnInit(); },
-      error: (e) => this.notify.error(e?.error?.message || 'Failed')
+      next: () => { this.notify.success('Pridružili ste se učionici!'); this.ngOnInit(); },
+      error: (e) => this.notify.error(e?.error?.message || 'Nije uspelo')
     });
   }
 }

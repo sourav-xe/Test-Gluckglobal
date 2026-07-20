@@ -14,8 +14,8 @@ import { ArenaReplayDto } from '../../glueck-arena.types';
     <div class="rv" *ngIf="replay">
       <div class="rv__head">
         <button mat-icon-button routerLink="/glueck-arena"><mat-icon>arrow_back</mat-icon></button>
-        <h1>Battle Replay</h1>
-        <button mat-stroked-button (click)="copyShare()"><mat-icon>share</mat-icon> Share</button>
+        <h1>Snimak bitke</h1>
+        <button mat-stroked-button (click)="copyShare()"><mat-icon>share</mat-icon> Podeli</button>
       </div>
 
       <div class="rv__meta">

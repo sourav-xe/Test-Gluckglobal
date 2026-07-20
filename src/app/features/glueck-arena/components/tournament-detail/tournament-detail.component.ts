@@ -26,14 +26,14 @@ import { ArenaTournamentDto, ArenaBracketMatch } from '../../glueck-arena.types'
 
       <div class="td__actions" *ngIf="canRegister">
         <button mat-raised-button color="primary" (click)="register()" [disabled]="registering">
-          {{ registering ? 'Joining…' : 'Register' }}
+          {{ registering ? 'Pridruživanje…' : 'Registruj se' }}
         </button>
       </div>
 
-      <h2>Bracket</h2>
+      <h2>Šema</h2>
       <div class="td__bracket">
         <div class="td__match" *ngFor="let m of tournament.bracket; let i = index" [attr.data-status]="m.status">
-          <span class="td__match-num">Match {{ i + 1 }}</span>
+          <span class="td__match-num">Meč {{ i + 1 }}</span>
           <div class="td__player" [class.td__player--win]="m.winnerId === m.playerAId">
             {{ m.playerAName || 'TBD' }}
           </div>
@@ -41,17 +41,17 @@ import { ArenaTournamentDto, ArenaBracketMatch } from '../../glueck-arena.types'
           <div class="td__player" [class.td__player--win]="m.winnerId === m.playerBId">
             {{ m.playerBName || 'BYE' }}
           </div>
-          <a *ngIf="m.roomCode" [routerLink]="['/glueck-arena/spectate']" [queryParams]="{ code: m.roomCode }" mat-stroked-button>Watch</a>
+          <a *ngIf="m.roomCode" [routerLink]="['/glueck-arena/spectate']" [queryParams]="{ code: m.roomCode }" mat-stroked-button>Gledaj</a>
         </div>
-        <p *ngIf="!tournament.bracket?.length" class="td__empty">Bracket opens when tournament starts.</p>
+        <p *ngIf="!tournament.bracket?.length" class="td__empty">Šema se otvara kada turnir počne.</p>
       </div>
 
-      <h2>Leaderboard</h2>
+      <h2>Rang lista</h2>
       <div class="td__lb">
         <div class="td__lb-row" *ngFor="let e of leaderboard; let i = index">
           <span>#{{ i + 1 }}</span>
           <strong>{{ e.name }}</strong>
-          <span>{{ e.wins }} wins</span>
+          <span>{{ e.wins }} pobeda</span>
         </div>
       </div>
     </div>
@@ -111,11 +111,11 @@ export class TournamentDetailComponent implements OnInit {
     this.svc.registerTournament(this.tournament._id).subscribe({
       next: r => {
         this.tournament = r.tournament;
-        this.notify.success('Registered!');
+        this.notify.success('Registrovani ste!');
         this.registering = false;
         this.canRegister = false;
       },
-      error: () => { this.registering = false; this.notify.error('Could not register'); }
+      error: () => { this.registering = false; this.notify.error('Registracija nije uspela'); }
     });
   }
 }

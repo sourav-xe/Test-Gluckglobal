@@ -89,7 +89,7 @@ export class ArenaSocketService implements OnDestroy {
 
     if (!token) {
 
-      this.error$.next('Not authenticated');
+      this.error$.next('Niste prijavljeni');
 
       return;
 
@@ -146,7 +146,7 @@ export class ArenaSocketService implements OnDestroy {
 
     this.socket.on('arena:error', (p: { message?: string }) => {
 
-      this.error$.next(p?.message || 'Arena error');
+      this.error$.next(p?.message || 'Greška u areni');
 
     });
 

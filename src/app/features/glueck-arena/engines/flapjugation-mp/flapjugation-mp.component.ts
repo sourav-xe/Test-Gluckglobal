@@ -88,7 +88,7 @@ interface Fragment {
       <div class="fjmp__body">
         <canvas #canvas class="fjmp__canvas"></canvas>
         <div class="fjmp__start" *ngIf="phase === 'idle'">
-          <p>Loading flapjugation…</p>
+          <p>Učitavanje igre…</p>
         </div>
         <app-xp-float [xp]="xpBurst" [trigger]="xpTrigger"></app-xp-float>
       </div>
@@ -173,7 +173,7 @@ export class FlapjugationMpComponent implements AfterViewInit, OnDestroy, OnChan
       this.initGame();
     }
     if (changes['answerResult'] && this.answerResult && !this.answerResult.isCorrect) {
-      this.showFeedback('Miss!', '#ef4444');
+      this.showFeedback('Promašaj!', '#ef4444');
     }
   }
 
@@ -467,7 +467,7 @@ export class FlapjugationMpComponent implements AfterViewInit, OnDestroy, OnChan
     this.pronounCycleIndex++;
     if (this.pronounCycleIndex >= PRONOUN_CYCLE.length) {
       this.phase = 'done';
-      this.feedbackText = 'All pronouns covered!';
+      this.feedbackText = 'Sve zamenice su obrađene!';
       return;
     }
     this.currentPronoun = PRONOUN_CYCLE[this.pronounCycleIndex];

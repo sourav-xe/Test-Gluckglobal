@@ -38,18 +38,18 @@ interface MemoryCard {
             <mat-icon>star</mat-icon>
             <span>{{ score }}</span>
           </div>
-          <div class="mg-play__progress">Board {{ currentQuestionIndex + 1 }} / {{ questions.length }}</div>
-          <div class="mg-play__pairs">{{ matchedCount }} / {{ totalPairsInBoard }} matched</div>
+          <div class="mg-play__progress">Tabla {{ currentQuestionIndex + 1 }} / {{ questions.length }}</div>
+          <div class="mg-play__pairs">{{ matchedCount }} / {{ totalPairsInBoard }} upareno</div>
           <div class="mg-play__timer">
             <mat-icon>timer</mat-icon>
             <span>{{ formatElapsed(sessionElapsedSeconds) }}</span>
           </div>
-          <button mat-icon-button type="button" (click)="onPause()" aria-label="Pause"><mat-icon>pause</mat-icon></button>
+          <button mat-icon-button type="button" (click)="onPause()" aria-label="Pauza"><mat-icon>pause</mat-icon></button>
         </header>
 
         <div class="mg-board" *ngIf="phase === 'playing'">
           <div class="mg-board__prompt" [class.mg-board__prompt--preview]="previewing">
-            <p *ngIf="previewing">Memorize the cards! Game starts in 8 seconds…</p>
+            <p *ngIf="previewing">Zapamtite karte! Igra počinje za 8 sekundi…</p>
             <p *ngIf="!previewing">Flip cards to find matching picture-word pairs. Match all pairs to complete the board!</p>
           </div>
 
@@ -80,7 +80,7 @@ interface MemoryCard {
 
         <div class="mg-complete" *ngIf="phase === 'complete'">
           <mat-icon class="mg-complete__spinner">hourglass_top</mat-icon>
-          <span class="mg-complete__calc">Calculating results...</span>
+          <span class="mg-complete__calc">Računanje rezultata...</span>
         </div>
       </main>
 

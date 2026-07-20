@@ -52,27 +52,27 @@ import { AuthService } from '../../../../services/auth.service';
       <!-- Loading -->
       <div class="bfroom__loading" *ngIf="!room">
         <mat-spinner diameter="40"></mat-spinner>
-        <span>Joining room…</span>
+        <span>Pridruživanje sobi…</span>
       </div>
 
       <ng-container *ngIf="room">
         <!-- Top bar -->
         <div class="bfroom__topbar">
-          <button mat-icon-button (click)="leave()" aria-label="Back">
+          <button mat-icon-button (click)="leave()" aria-label="Nazad">
             <mat-icon>arrow_back</mat-icon>
           </button>
           <div class="bfroom__topbar-info">
-            <span class="bfroom__topbar-name">{{ room.roomName || 'Battle Room' }}</span>
-            <span class="bfroom__topbar-code">Code: {{ room.inviteCode }}</span>
+            <span class="bfroom__topbar-name">{{ room.roomName || 'Soba za bitku' }}</span>
+            <span class="bfroom__topbar-code">Kod: {{ room.inviteCode }}</span>
           </div>
           <div class="bfroom__topbar-status">
             <span class="bfroom__status-badge" [class.bfroom__status-badge--playing]="phase === 'playing'">
               {{ phase | titlecase }}
             </span>
           </div>
-          <span class="bfroom__copied" *ngIf="copiedInvite">Link copied!</span>
+          <span class="bfroom__copied" *ngIf="copiedInvite">Link je kopiran!</span>
           <button mat-stroked-button (click)="copyInvite()" class="bfroom__invite-btn">
-            <mat-icon>link</mat-icon> Invite
+            <mat-icon>link</mat-icon> Pozovi
           </button>
         </div>
 
@@ -80,10 +80,10 @@ import { AuthService } from '../../../../services/auth.service';
         <div class="bfroom__layout" [class.bfroom__layout--finished]="phase === 'finished'">
           <!-- Mobile drawer toggles -->
           <div class="bfroom__drawer-toggles">
-            <button class="bfroom__drawer-btn bfroom__drawer-btn--left" (click)="showLeftDrawer = !showLeftDrawer" aria-label="Toggle info">
+            <button class="bfroom__drawer-btn bfroom__drawer-btn--left" (click)="showLeftDrawer = !showLeftDrawer" aria-label="Prikaži/sakrij podatke">
               <span class="material-icons">menu</span>
             </button>
-            <button class="bfroom__drawer-btn bfroom__drawer-btn--right" (click)="showRightDrawer = !showRightDrawer" aria-label="Toggle chat">
+            <button class="bfroom__drawer-btn bfroom__drawer-btn--right" (click)="showRightDrawer = !showRightDrawer" aria-label="Prikaži/sakrij ćaskanje">
               <span class="material-icons">chat</span>
             </button>
           </div>
@@ -91,27 +91,27 @@ import { AuthService } from '../../../../services/auth.service';
           <!-- LEFT: Game Info -->
           <aside class="bfroom__left" [class.bfroom__left--open]="showLeftDrawer">
             <div class="bfroom__info-card">
-              <h3><mat-icon>info</mat-icon> Game Info</h3>
+              <h3><mat-icon>info</mat-icon> Podaci o igri</h3>
               <div class="bfroom__info-row">
-                <span class="bfroom__info-label">Game</span>
+                <span class="bfroom__info-label">Igra</span>
                 <span class="bfroom__info-value">{{ formatGameType(room.gameType) }}</span>
               </div>
               <div class="bfroom__info-row">
-                <span class="bfroom__info-label">Host</span>
+                <span class="bfroom__info-label">Domaćin</span>
                 <span class="bfroom__info-value">{{ hostName }}</span>
               </div>
               <div class="bfroom__info-row" *ngIf="phase === 'lobby'">
-                <span class="bfroom__info-label">Players</span>
+                <span class="bfroom__info-label">Igrači</span>
                 <span class="bfroom__info-value">{{ room.players.length }} / {{ room.maxPlayers }}</span>
               </div>
               <div class="bfroom__info-row" *ngIf="phase === 'playing' && room.battle">
-                <span class="bfroom__info-label">Round</span>
+                <span class="bfroom__info-label">Runda</span>
                 <span class="bfroom__info-value">{{ room.battle.currentRound + 1 }} / {{ room.battle.totalRounds }}</span>
               </div>
             </div>
 
             <div class="bfroom__scoreboard" *ngIf="phase !== 'lobby'">
-              <h3><mat-icon>leaderboard</mat-icon> Scores</h3>
+              <h3><mat-icon>leaderboard</mat-icon> Rezultati</h3>
               <div class="bfroom__score-row" *ngFor="let p of sortedPlayers; let i = index"
                 [class.bfroom__score-row--me]="sameId(p.studentId, userId)"
                 [class.bfroom__score-row--host]="sameId(p.studentId, room.hostId)">
@@ -123,7 +123,7 @@ import { AuthService } from '../../../../services/auth.service';
                 </span>
               </div>
               <div class="bfroom__score-empty" *ngIf="!sortedPlayers.length">
-                <mat-icon>people_outline</mat-icon> No players yet
+                <mat-icon>people_outline</mat-icon> Još nema igrača
               </div>
             </div>
 
@@ -137,7 +137,7 @@ import { AuthService } from '../../../../services/auth.service';
                 <div class="bfroom__lobby-hero">
                   <mat-icon class="bfroom__lobby-icon">sports_esports</mat-icon>
                   <span class="bfroom__lobby-status-chip" [class.bfroom__lobby-status-chip--ready]="allReady">
-                    {{ allReady ? 'All ready' : 'In lobby' }}
+                    {{ allReady ? 'Svi su spremni' : 'U čekaonici' }}
                   </span>
                 </div>
                 <h2>{{ lobbyTitle }}</h2>
@@ -147,7 +147,7 @@ import { AuthService } from '../../../../services/auth.service';
                   <div class="bfroom__ready-bar__track">
                     <div class="bfroom__ready-bar__fill" [style.width.%]="readyPercent"></div>
                   </div>
-                  <span class="bfroom__ready-bar__label">{{ readyCount }} / {{ room.players.length }} ready</span>
+                  <span class="bfroom__ready-bar__label">{{ readyCount }} / {{ room.players.length }} spremno</span>
                 </div>
 
                 <div class="bfroom__lobby-players">
@@ -164,10 +164,10 @@ import { AuthService } from '../../../../services/auth.service';
                         <span class="bfroom__lobby-you" *ngIf="sameId(p.studentId, userId)">(you)</span>
                       </span>
                       <span class="bfroom__lobby-pstatus" [class.bfroom__lobby-pstatus--ok]="p.isReady">
-                        {{ p.isReady ? 'Ready to battle' : 'Getting ready…' }}
+                        {{ p.isReady ? 'Spreman za bitku' : 'Pripremanje…' }}
                       </span>
                     </div>
-                    <span class="bfroom__lobby-badge" *ngIf="sameId(p.studentId, room.hostId)">HOST</span>
+                    <span class="bfroom__lobby-badge" *ngIf="sameId(p.studentId, room.hostId)">DOMAĆIN</span>
                     <mat-icon class="bfroom__lobby-check"
                       [class.bfroom__lobby-check--ok]="p.isReady"
                       [class.bfroom__lobby-check--pending]="!p.isReady">
@@ -177,13 +177,13 @@ import { AuthService } from '../../../../services/auth.service';
                 </div>
 
                 <div class="bfroom__lobby-hint bfroom__lobby-hint--warn" *ngIf="room.players.length < 2">
-                  <mat-icon>group_add</mat-icon> Need at least 2 players — share code <strong>{{ room.inviteCode }}</strong>
+                  <mat-icon>group_add</mat-icon> Potrebna su najmanje 2 igrača — podelite kod <strong>{{ room.inviteCode }}</strong>
                 </div>
                 <div class="bfroom__lobby-hint bfroom__lobby-hint--ok" *ngIf="allReady && room.players.length >= 2">
                   <mat-icon>rocket_launch</mat-icon> Everyone's ready — battle starts automatically!
                 </div>
                 <div class="bfroom__lobby-hint" *ngIf="!allReady && room.players.length >= 2">
-                  <mat-icon>hourglass_top</mat-icon> Waiting for all players to tap <strong>I'm Ready</strong>
+                  <mat-icon>hourglass_top</mat-icon> Čeka se da svi igrači tapnu <strong>Spreman sam</strong>
                 </div>
               </div>
             </div>
@@ -191,7 +191,7 @@ import { AuthService } from '../../../../services/auth.service';
             <!-- Countdown phase -->
             <div class="bfroom__countdown" *ngIf="phase === 'countdown'">
               <div class="bfroom__countdown-num">{{ countdown }}</div>
-              <span>Get ready!</span>
+              <span>Pripremite se!</span>
             </div>
 
             <!-- Lobby controls -->
@@ -202,7 +202,7 @@ import { AuthService } from '../../../../services/auth.service';
                 (click)="toggleReady()"
                 [disabled]="phase === 'countdown'">
                 <mat-icon>{{ isReady ? 'check_circle' : 'front_hand' }}</mat-icon>
-                {{ isReady ? "I'm Ready ✓" : "I'm Ready" }}
+                {{ isReady ? "Spreman sam ✓" : "Spreman sam" }}
               </button>
               <button mat-raised-button color="accent"
                 *ngIf="isHost && !allReady"
@@ -317,12 +317,12 @@ import { AuthService } from '../../../../services/auth.service';
                 </ng-container>
                 <div class="bfroom__engine-fallback" *ngIf="(!attempt || gameQuestions.length === 0) && !playerCompleted">
                   <mat-spinner diameter="32"></mat-spinner>
-                  <span>Preparing game…</span>
+                  <span>Priprema igre…</span>
                 </div>
                 <div class="bfroom__waiting" *ngIf="playerCompleted">
                   <mat-icon class="bfroom__waiting-icon">hourglass_empty</mat-icon>
-                  <h3>You're done!</h3>
-                  <p>Waiting for other players to finish…</p>
+                  <h3>Završili ste!</h3>
+                  <p>Čeka se da ostali igrači završe…</p>
                 </div>
               </div>
             </div>
@@ -330,22 +330,22 @@ import { AuthService } from '../../../../services/auth.service';
             <!-- Finished phase -->
             <div class="bfroom__finished" *ngIf="phase === 'finished'">
               <mat-icon class="bfroom__finished-icon">emoji_events</mat-icon>
-              <h2>Battle Complete!</h2>
+              <h2>Bitka je završena!</h2>
               <div class="bfroom__podium">
                 <div class="bfroom__podium-item bfroom__podium-item--1" *ngIf="sortedPlayers[0]">
                   <span class="bfroom__podium-medal">🥇</span>
                   <span class="bfroom__podium-name">{{ sortedPlayers[0].name }}</span>
-                  <span class="bfroom__podium-score">{{ sortedPlayers[0].score }} pts</span>
+                  <span class="bfroom__podium-score">{{ sortedPlayers[0].score }} bod.</span>
                 </div>
                 <div class="bfroom__podium-item bfroom__podium-item--2" *ngIf="sortedPlayers[1]">
                   <span class="bfroom__podium-medal">🥈</span>
                   <span class="bfroom__podium-name">{{ sortedPlayers[1].name }}</span>
-                  <span class="bfroom__podium-score">{{ sortedPlayers[1].score }} pts</span>
+                  <span class="bfroom__podium-score">{{ sortedPlayers[1].score }} bod.</span>
                 </div>
                 <div class="bfroom__podium-item bfroom__podium-item--3" *ngIf="sortedPlayers[2]">
                   <span class="bfroom__podium-medal">🥉</span>
                   <span class="bfroom__podium-name">{{ sortedPlayers[2].name }}</span>
-                  <span class="bfroom__podium-score">{{ sortedPlayers[2].score }} pts</span>
+                  <span class="bfroom__podium-score">{{ sortedPlayers[2].score }} bod.</span>
                 </div>
               </div>
               <div class="bfroom__finished-actions">
@@ -554,7 +554,7 @@ export class BattlefieldRoomComponent implements OnInit, OnDestroy {
 
   get hostName(): string {
     const host = this.room?.players?.find(p => this.sameId(p.studentId, this.room?.hostId));
-    return host?.name || this.room?.hostName || 'Unknown';
+    return host?.name || this.room?.hostName || 'Nepoznato';
   }
 
   get myScore(): number {
@@ -572,16 +572,16 @@ export class BattlefieldRoomComponent implements OnInit, OnDestroy {
   }
 
   get lobbyTitle(): string {
-    if ((this.room?.players?.length || 0) < 2) return 'Waiting for players…';
+    if ((this.room?.players?.length || 0) < 2) return 'Čekanje igrača…';
     if (this.allReady) return 'Everyone\'s ready!';
-    return 'Waiting for everyone to ready up';
+    return 'Čeka se da svi budu spremni';
   }
 
   get lobbySubtitle(): string {
     if ((this.room?.players?.length || 0) < 2) {
       return `Share invite code ${this.room?.inviteCode || ''} so a friend can join.`;
     }
-    if (this.allReady) return 'Battle starts in a moment — get set!';
+    if (this.allReady) return 'Bitka počinje za trenutak — spremite se!';
     return `${this.readyCount} of ${this.room?.players?.length} players are ready.`;
   }
 
@@ -708,7 +708,7 @@ export class BattlefieldRoomComponent implements OnInit, OnDestroy {
 
     this.gameSet = {
       _id: this.room.gameSetId || 'bf_set',
-      title: this.room.roomName || 'Battlefield Game',
+      title: this.room.roomName || 'Igra na bojnom polju',
       gameType: gt as GameSet['gameType'],
       description: '',
       difficulty: 'Intermediate',

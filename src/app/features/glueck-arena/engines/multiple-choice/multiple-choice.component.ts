@@ -78,8 +78,8 @@ export interface MCResult {
         <mat-icon class="mc__done-icon" *ngIf="!dead && accuracy >= 80">emoji_events</mat-icon>
         <mat-icon class="mc__done-icon" *ngIf="!dead && accuracy < 80 && accuracy >= 50">thumb_up</mat-icon>
         <mat-icon class="mc__done-icon" *ngIf="!dead && accuracy < 50">replay</mat-icon>
-        <p *ngIf="dead">Game Over — no lives left!</p>
-        <p *ngIf="!dead">All questions answered!</p>
+        <p *ngIf="dead">Kraj igre — nema više života!</p>
+        <p *ngIf="!dead">Odgovoreno je na sva pitanja!</p>
       </div>
 
       <app-xp-float [xp]="xpBurst" [trigger]="xpTrigger"></app-xp-float>

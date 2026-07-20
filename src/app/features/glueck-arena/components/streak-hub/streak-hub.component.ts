@@ -21,12 +21,12 @@ import { NotificationService } from '../../../../services/notification.service';
       </div>
 
       <mat-card class="sh__weekly">
-        <mat-card-title>Weekly streak</mat-card-title>
+        <mat-card-title>Nedeljni niz</mat-card-title>
         <mat-card-content>
           <p>{{ data.weeklyStreakDays }} / 5 days this week</p>
           <button mat-raised-button color="accent" [disabled]="data.weeklyStreakRewardClaimed || data.weeklyStreakDays < 5"
             (click)="claimWeekly()">
-            Claim {{ data.weeklyRewardXp }} XP
+            Preuzmi {{ data.weeklyRewardXp }} XP
           </button>
         </mat-card-content>
       </mat-card>
@@ -40,8 +40,8 @@ import { NotificationService } from '../../../../services/notification.service';
       </div>
 
       <div class="sh__actions">
-        <button mat-stroked-button (click)="repair()"><mat-icon>healing</mat-icon> Repair streak</button>
-        <button mat-stroked-button (click)="showCalendar = !showCalendar"><mat-icon>calendar_month</mat-icon> Calendar</button>
+        <button mat-stroked-button (click)="repair()"><mat-icon>healing</mat-icon> Popravi niz</button>
+        <button mat-stroked-button (click)="showCalendar = !showCalendar"><mat-icon>calendar_month</mat-icon> Kalendar</button>
       </div>
 
       <mat-dialog-content class="sh__cal" *ngIf="showCalendar">
@@ -89,22 +89,22 @@ export class StreakHubComponent implements OnInit {
 
   claimWeekly() {
     this.svc.claimWeeklyStreak().subscribe({
-      next: () => { this.notify.success('Weekly reward claimed!'); this.ngOnInit(); },
-      error: (e) => this.notify.error(e?.error?.message || 'Failed')
+      next: () => { this.notify.success('Nedeljna nagrada je preuzeta!'); this.ngOnInit(); },
+      error: (e) => this.notify.error(e?.error?.message || 'Nije uspelo')
     });
   }
 
   claimMilestone(days: number) {
     this.svc.claimStreakMilestone(days).subscribe({
-      next: () => { this.notify.success('Milestone claimed!'); this.ngOnInit(); },
-      error: (e) => this.notify.error(e?.error?.message || 'Failed')
+      next: () => { this.notify.success('Prekretnica je preuzeta!'); this.ngOnInit(); },
+      error: (e) => this.notify.error(e?.error?.message || 'Nije uspelo')
     });
   }
 
   repair() {
     this.svc.repairStreak().subscribe({
-      next: () => { this.notify.success('Streak repaired!'); this.ngOnInit(); },
-      error: (e) => this.notify.error(e?.error?.message || 'Failed')
+      next: () => { this.notify.success('Niz je popravljen!'); this.ngOnInit(); },
+      error: (e) => this.notify.error(e?.error?.message || 'Nije uspelo')
     });
   }
 }

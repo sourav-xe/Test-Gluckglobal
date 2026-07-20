@@ -102,7 +102,7 @@ import {
 
         <mat-spinner diameter="40"></mat-spinner>
 
-        <p>Connecting to arena…</p>
+        <p>Povezivanje sa arenom…</p>
 
       </div>
 
@@ -148,7 +148,7 @@ import {
 
           <button mat-raised-button color="primary" (click)="toggleReady()">
 
-            {{ iAmReady ? 'Unready' : 'Ready' }}
+            {{ iAmReady ? 'Nisam spreman' : 'Spreman' }}
 
           </button>
 
@@ -168,7 +168,7 @@ import {
 
         <div class="mpb__countdown-num">{{ countdown }}</div>
 
-        <p>Get ready!</p>
+        <p>Pripremite se!</p>
 
       </div>
 
@@ -310,7 +310,7 @@ import {
 
         <mat-spinner diameter="32"></mat-spinner>
 
-        <p>Loading next round…</p>
+        <p>Učitavanje sledeće runde…</p>
 
       </div>
 
@@ -320,7 +320,7 @@ import {
 
         <app-confetti-burst [active]="true"></app-confetti-burst>
 
-        <h2>Victory!</h2>
+        <h2>Pobeda!</h2>
 
         <div class="mpb__podium">
 
@@ -334,7 +334,7 @@ import {
 
             <strong>{{ r.name }}</strong>
 
-            <span>{{ r.score }} pts</span>
+            <span>{{ r.score }} bod.</span>
 
           </div>
 
@@ -342,9 +342,9 @@ import {
 
         <div class="mpb__actions">
 
-          <button mat-raised-button color="primary" (click)="rematch()">Rematch</button>
+          <button mat-raised-button color="primary" (click)="rematch()">Revanš</button>
 
-          <button mat-stroked-button routerLink="/glueck-arena">Back to games</button>
+          <button mat-stroked-button routerLink="/glueck-arena">Nazad na igre</button>
 
         </div>
 
@@ -448,15 +448,15 @@ export class MultiplayerBattleComponent implements OnInit, OnDestroy {
 
   get gameLabel(): string {
 
-    if (this.room?.gameType === 'scramble_rush') return 'Scramble Rush';
+    if (this.room?.gameType === 'scramble_rush') return 'Juriš slova';
 
-    if (this.room?.gameType === 'sentence_builder') return 'Sentence Builder';
+    if (this.room?.gameType === 'sentence_builder') return 'Graditelj rečenica';
 
-    if (this.room?.gameType === 'whackawort') return 'Whack-a-Wort';
+    if (this.room?.gameType === 'whackawort') return 'Udari reč';
 
-    if (this.room?.gameType === 'jumbled_words') return 'Jumbled Words';
+    if (this.room?.gameType === 'jumbled_words') return 'Izmešane reči';
 
-    return 'Battle';
+    return 'Bitka';
 
   }
 
@@ -738,7 +738,7 @@ export class MultiplayerBattleComponent implements OnInit, OnDestroy {
 
     navigator.clipboard?.writeText(url);
 
-    this.notify.success('Invite link copied!');
+    this.notify.success('Link pozivnice je kopiran!');
 
   }
 

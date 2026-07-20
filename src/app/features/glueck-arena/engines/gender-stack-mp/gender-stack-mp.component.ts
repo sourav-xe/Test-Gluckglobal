@@ -25,7 +25,7 @@ import {
       <div class="gsmp__board" *ngIf="question && !answered">
         <div class="gsmp__word">{{ question.word }}</div>
         <p class="gsmp__translation" *ngIf="question.translation">Translation: {{ question.translation }}</p>
-        <p class="gsmp__question">Which article does this noun take?</p>
+        <p class="gsmp__question">Koji član ide uz ovu imenicu?</p>
         <div class="gsmp__buckets">
           <button class="gsmp__bucket gsmp__bucket--der"
             [class.gsmp__bucket--selected]="selectedGender === 'der'"
@@ -33,7 +33,7 @@ import {
             [class.gsmp__bucket--wrong]="feedback === 'wrong' && selectedGender === 'der'"
             [disabled]="!!feedback" (click)="selectGender('der')">
             <span class="gsmp__article">DER</span>
-            <span class="gsmp__hint">masculine</span>
+            <span class="gsmp__hint">muški</span>
           </button>
           <button class="gsmp__bucket gsmp__bucket--die"
             [class.gsmp__bucket--selected]="selectedGender === 'die'"
@@ -41,7 +41,7 @@ import {
             [class.gsmp__bucket--wrong]="feedback === 'wrong' && selectedGender === 'die'"
             [disabled]="!!feedback" (click)="selectGender('die')">
             <span class="gsmp__article">DIE</span>
-            <span class="gsmp__hint">feminine</span>
+            <span class="gsmp__hint">ženski</span>
           </button>
           <button class="gsmp__bucket gsmp__bucket--das"
             [class.gsmp__bucket--selected]="selectedGender === 'das'"
@@ -49,7 +49,7 @@ import {
             [class.gsmp__bucket--wrong]="feedback === 'wrong' && selectedGender === 'das'"
             [disabled]="!!feedback" (click)="selectGender('das')">
             <span class="gsmp__article">DAS</span>
-            <span class="gsmp__hint">neuter</span>
+            <span class="gsmp__hint">srednji</span>
           </button>
         </div>
         <div class="gsmp__submit-area" *ngIf="selectedGender && !feedback">
@@ -61,11 +61,11 @@ import {
           <mat-icon>check_circle</mat-icon> +{{ lastPoints }} pts
         </div>
         <div class="gsmp__feedback gsmp__feedback--wrong" *ngIf="feedback === 'wrong'">
-          <mat-icon>cancel</mat-icon> {{ revealAnswer || 'Wrong' }}
+          <mat-icon>cancel</mat-icon> {{ revealAnswer || 'Netačno' }}
         </div>
       </div>
 
-      <div class="gsmp__waiting" *ngIf="answered">Waiting for next round…</div>
+      <div class="gsmp__waiting" *ngIf="answered">Čeka se sledeća runda…</div>
       <app-xp-float [xp]="lastPoints" [trigger]="xpTrigger"></app-xp-float>
       <app-confetti-burst [active]="showConfetti"></app-confetti-burst>
     </div>

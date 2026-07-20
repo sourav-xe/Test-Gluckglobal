@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../../../shared/material.module';
 import { InteractiveGameService } from '../../services/interactive-game.service';
 import { GameSet, LeaderboardEntry } from '../../glueck-arena.types';
+import { formatGameTypeSr, formatDifficultySr } from '../../game-type-labels';
 
 @Component({
   selector: 'app-game-detail',
@@ -23,7 +24,7 @@ import { GameSet, LeaderboardEntry } from '../../glueck-arena.types';
       <div class="gd__content" *ngIf="set">
         <div class="gd__tags">
           <span class="gd__badge gd__badge--type">{{ formatType(set.gameType) }}</span>
-          <span class="gd__badge gd__badge--diff gd__badge--diff-{{ set.difficulty | lowercase }}">{{ set.difficulty }}</span>
+          <span class="gd__badge gd__badge--diff gd__badge--diff-{{ set.difficulty | lowercase }}">{{ formatDifficulty(set.difficulty) }}</span>
           <span *ngIf="set.level" class="gd__badge gd__badge--level">{{ set.level }}</span>
         </div>
 
@@ -33,71 +34,71 @@ import { GameSet, LeaderboardEntry } from '../../glueck-arena.types';
         <div class="gd__meta">
           <div class="gd__meta__item">
             <mat-icon>bolt</mat-icon>
-            <div><strong>{{ set.xpReward }}</strong><span>XP Reward</span></div>
+            <div><strong>{{ set.xpReward }}</strong><span>XP nagrada</span></div>
           </div>
           <div class="gd__meta__item">
             <mat-icon>timer</mat-icon>
-            <div><strong>~{{ set.estimatedDurationMinutes }} min</strong><span>Duration</span></div>
+            <div><strong>~{{ set.estimatedDurationMinutes }} min</strong><span>Trajanje</span></div>
           </div>
           <div class="gd__meta__item">
             <mat-icon>quiz</mat-icon>
-            <div><strong>{{ set.questionCount }}</strong><span>Questions</span></div>
+            <div><strong>{{ set.questionCount }}</strong><span>Pitanja</span></div>
           </div>
           <div class="gd__meta__item" *ngIf="set.studentProgress?.bestScore !== null">
             <mat-icon>emoji_events</mat-icon>
-            <div><strong>{{ set.studentProgress?.bestScore }}</strong><span>Best Score</span></div>
+            <div><strong>{{ set.studentProgress?.bestScore }}</strong><span>Najbolji rezultat</span></div>
           </div>
         </div>
 
         <!-- Instructions -->
         <div class="gd__instructions">
-          <h3>How to Play</h3>
+          <h3>Kako se igra</h3>
           <p *ngIf="set.gameType === 'scramble_rush'">
-            Letters fall from the sky — type the unscrambled word before they hit the line! 
-            You have {{ 3 }} hearts. Complete all levels to win.
+            Slova padaju s neba — otkucajte složenu reč pre nego što dodirnu liniju!
+            Imate {{ 3 }} srca. Završite sve nivoe da biste pobedili.
           </p>
           <p *ngIf="set.gameType === 'sentence_builder'">
-            Drag and drop the shuffled words to form the correct German sentence.
-            Check your answer and earn XP for each correct sentence!
+            Prevucite izmešane reči da sastavite ispravnu nemačku rečenicu.
+            Proverite odgovor i osvojite XP za svaku tačnu rečenicu!
           </p>
           <p *ngIf="set.gameType === 'matching'">
-            Match each item on the left with the correct item on the right.
+            Uparite svaku stavku sa leve strane sa odgovarajućom sa desne.
           </p>
           <p *ngIf="set.gameType === 'flashcards'">
-            Flip through cards to test your vocabulary. Coming soon!
+            Prelistajte kartice da proverite vokabular. Uskoro!
           </p>
           <p *ngIf="set.gameType === 'image_matching'">
-            Drag each German word to the picture it matches.
+            Prevucite svaku nemačku reč do slike koja joj odgovara.
           </p>
           <p *ngIf="set.gameType === 'gender_stack'">
-            Words fall and stack on the shelf — drag each noun into DER, DIE, or DAS before the pile overflows. You have 5 lives.
+            Reči padaju i slažu se na policu — prevucite svaku imenicu u DER, DIE ili DAS pre nego što se gomila prepuni. Imate 5 života.
           </p>
           <p *ngIf="set.gameType === 'flapjugation'">
-            Fly into the right verb conjugation for the pronoun shown — dodge all the wrong ones and make conjugation a reflex!
+            Uletite u ispravnu konjugaciju glagola za prikazanu zamenicu — izbegnite sve pogrešne i neka konjugacija postane refleks!
           </p>
           <p *ngIf="set.gameType === 'whackawort'">
-            Whack the German words that match the target category — hit the wrong ones and lose a life!
+            Udarajte nemačke reči koje pripadaju traženoj kategoriji — pogodite pogrešnu i gubite život!
           </p>
-          <p *ngIf="set.gameType === 'memory'">Flip cards to reveal pictures and words. Find and match each picture with the correct word!</p>
-          <p *ngIf="set.gameType === 'jumbled_words'">Look at the picture and arrange the jumbled letters into the correct order to form the word.</p>
-          <p *ngIf="set.gameType === 'hangman'">Read the clue and guess the word one letter at a time. Each wrong guess brings the hangman closer!</p>
-          <p *ngIf="set.gameType === 'word_picture_match'">Match each word to the correct picture. Click the picture that matches the word shown — match all pairs before time runs out!</p>
-          <p *ngIf="set.gameType === 'spin_wheel'">Spin the wheel, then eliminate phrases one by one or resume to keep them — until one winning phrase remains.</p>
-          <p *ngIf="set.gameType === 'tap_boxes'">Tap numbered boxes on the grid — each opens with a zoom and peel animation to reveal a hidden German phrase.</p>
-          <p *ngIf="set.gameType === 'word_search'">Find hidden words across, down, or diagonally. Drag or tap letters in order to reveal each word — correct finds earn points, wrong selections cost a life.</p>
+          <p *ngIf="set.gameType === 'memory'">Okrećite karte da otkrijete slike i reči. Pronađite i uparite svaku sliku sa ispravnom rečju!</p>
+          <p *ngIf="set.gameType === 'jumbled_words'">Pogledajte sliku i poređajte izmešana slova ispravnim redosledom da dobijete reč.</p>
+          <p *ngIf="set.gameType === 'hangman'">Pročitajte opis i pogađajte reč slovo po slovo. Svaki pogrešan pokušaj približava vešala!</p>
+          <p *ngIf="set.gameType === 'word_picture_match'">Uparite svaku reč sa ispravnom slikom. Kliknite na sliku koja odgovara prikazanoj reči — uparite sve parove pre isteka vremena!</p>
+          <p *ngIf="set.gameType === 'spin_wheel'">Zavrtite točak, pa izbacujte fraze jednu po jednu ili ih zadržite — dok ne ostane jedna pobednička fraza.</p>
+          <p *ngIf="set.gameType === 'tap_boxes'">Tapnite numerisane kutije na tabli — svaka se otvara animacijom i otkriva skrivenu nemačku frazu.</p>
+          <p *ngIf="set.gameType === 'word_search'">Pronađite skrivene reči vodoravno, uspravno ili dijagonalno. Prevucite ili tapnite slova redom da otkrijete reč — tačni pogoci donose poene, pogrešni koštaju života.</p>
         </div>
 
         <button mat-raised-button color="primary" class="gd__play-btn" (click)="play()">
-          <mat-icon>play_arrow</mat-icon> Play Now — Earn {{ set.xpReward }} XP
+          <mat-icon>play_arrow</mat-icon> Igraj sada — osvoji {{ set.xpReward }} XP
         </button>
 
         <!-- Leaderboard preview -->
         <div class="gd__leaderboard" *ngIf="leaderboard.length">
-          <h3><mat-icon>leaderboard</mat-icon> Top Players</h3>
+          <h3><mat-icon>leaderboard</mat-icon> Najbolji igrači</h3>
           <div class="gd__lb-row" *ngFor="let e of leaderboard">
             <span class="gd__lb-rank">{{ e.rank }}</span>
             <span class="gd__lb-name">{{ e.name }}</span>
-            <span class="gd__lb-score">{{ e.bestScore }} pts</span>
+            <span class="gd__lb-score">{{ e.bestScore }} bod.</span>
           </div>
         </div>
       </div>
@@ -186,13 +187,10 @@ export class GameDetailComponent implements OnInit {
   }
 
   formatType(t: string): string {
-    const map: Record<string, string> = {
-      scramble_rush: 'Scramble Rush', sentence_builder: 'Sentence Builder', matching: 'Matching',
-      flashcards: 'Flashcards', image_matching: 'Image Matching', gender_stack: 'Gender Stack',
-      flapjugation: 'Flapjugation', whackawort: 'Whack-a-Wort',
-      memory: 'Memory Game',
-      word_picture_match: 'Word-Picture Match',
-    };
-    return map[t] ?? t;
+    return formatGameTypeSr(t);
+  }
+
+  formatDifficulty(d: string | undefined): string {
+    return formatDifficultySr(d);
   }
 }

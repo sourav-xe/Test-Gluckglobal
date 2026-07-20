@@ -13,12 +13,12 @@ import { Subscription } from 'rxjs';
   template: `
     <div class="bf-lb">
       <div class="bf-lb__top">
-        <button mat-icon-button routerLink="/glueck-arena/battlefield" aria-label="Back">
+        <button mat-icon-button routerLink="/glueck-arena/battlefield" aria-label="Nazad">
           <mat-icon>arrow_back</mat-icon>
         </button>
         <div class="bf-lb__brand">
           <mat-icon>military_tech</mat-icon>
-          <h1>Battlefield Leaderboard</h1>
+          <h1>Rang lista bojnog polja</h1>
         </div>
       </div>
 
@@ -34,15 +34,15 @@ import { Subscription } from 'rxjs';
           </div>
           <div class="bf-lb__my-stat">
             <span class="bf-lb__my-val">{{ myStats.wins }}</span>
-            <span class="bf-lb__my-lbl">Wins</span>
+            <span class="bf-lb__my-lbl">Pobede</span>
           </div>
           <div class="bf-lb__my-stat">
             <span class="bf-lb__my-val">{{ myStats.losses }}</span>
-            <span class="bf-lb__my-lbl">Losses</span>
+            <span class="bf-lb__my-lbl">Porazi</span>
           </div>
           <div class="bf-lb__my-stat">
             <span class="bf-lb__my-val">{{ myStats.gamesPlayed }}</span>
-            <span class="bf-lb__my-lbl">Total</span>
+            <span class="bf-lb__my-lbl">Ukupno</span>
           </div>
         </div>
       </div>
@@ -53,12 +53,12 @@ import { Subscription } from 'rxjs';
           <thead>
             <tr>
               <th>#</th>
-              <th>Player</th>
-              <th>Tier</th>
+              <th>Igrač</th>
+              <th>Rang</th>
               <th>ELO</th>
-              <th>W</th>
-              <th>L</th>
-              <th>Win %</th>
+              <th>P</th>
+              <th>I</th>
+              <th>% pobeda</th>
             </tr>
           </thead>
           <tbody>
@@ -78,10 +78,10 @@ import { Subscription } from 'rxjs';
 
         <div class="bf-lb__empty" *ngIf="entries.length === 0">
           <mat-icon>leaderboard</mat-icon>
-          <h3>No rankings yet</h3>
-          <p>Play Battlefield games to earn ELO</p>
+          <h3>Još nema rangiranja</h3>
+          <p>Igrajte igre na bojnom polju da biste osvojili ELO</p>
           <button mat-raised-button color="primary" routerLink="/glueck-arena/battlefield">
-            <mat-icon>sports_kabaddi</mat-icon> Go to Battlefield
+            <mat-icon>sports_kabaddi</mat-icon> Idi na bojno polje
           </button>
         </div>
       </div>
@@ -90,7 +90,7 @@ import { Subscription } from 'rxjs';
         <button mat-stroked-button [disabled]="page <= 1" (click)="goPage(page - 1)">
           Previous
         </button>
-        <span class="bf-lb__page-info">Page {{ page }} of {{ totalPages }}</span>
+        <span class="bf-lb__page-info">Strana {{ page }} od {{ totalPages }}</span>
         <button mat-stroked-button [disabled]="page >= totalPages" (click)="goPage(page + 1)">
           Next
         </button>

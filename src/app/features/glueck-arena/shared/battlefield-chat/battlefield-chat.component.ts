@@ -12,13 +12,13 @@ import { ChatMessage } from '../../glueck-arena.types';
     <div class="bfchat">
       <div class="bfchat__header">
         <mat-icon>chat</mat-icon>
-        <span>Room Chat</span>
+        <span>Ćaskanje u sobi</span>
       </div>
 
       <div class="bfchat__messages" #messageContainer>
         <div *ngIf="!messages?.length" class="bfchat__empty">
           <mat-icon>forum</mat-icon>
-          <span>No messages yet. Say something nice!</span>
+          <span>Još nema poruka. Recite nešto lepo!</span>
         </div>
 
         <div *ngFor="let msg of messages" class="bfchat__msg"
@@ -36,7 +36,7 @@ import { ChatMessage } from '../../glueck-arena.types';
         <input #chatInput class="bfchat__input" type="text"
           [(ngModel)]="newMessage" (keyup.enter)="send()"
           [disabled]="disabled"
-          placeholder="Type a message…" maxlength="500">
+          placeholder="Napišite poruku…" maxlength="500">
         <button class="bfchat__send" mat-icon-button color="primary"
           (click)="send()" [disabled]="!newMessage.trim() || disabled">
           <mat-icon>send</mat-icon>

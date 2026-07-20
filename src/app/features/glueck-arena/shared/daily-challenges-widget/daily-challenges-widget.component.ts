@@ -15,9 +15,9 @@ import { ConfettiBurstComponent } from '../confetti-burst/confetti-burst.compone
       <header class="dcw__head">
         <div class="dcw__title">
           <mat-icon>auto_awesome</mat-icon>
-          <span>Daily quests</span>
+          <span>Dnevni zadaci</span>
         </div>
-        <span class="dcw__reset">Resets at midnight</span>
+        <span class="dcw__reset">Resetuje se u ponoć</span>
       </header>
       <div class="dcw__grid">
         <article class="dcw__card" *ngFor="let c of challenges" [class.dcw__card--done]="c.isCompleted">
@@ -29,8 +29,8 @@ import { ConfettiBurstComponent } from '../confetti-burst/confetti-burst.compone
             </span>
           </div>
           <div class="dcw__body">
-            <h4>{{ c.title }}</h4>
-            <p>{{ c.description }}</p>
+            <h4>{{ challengeTitle(c) }}</h4>
+            <p>{{ challengeDescription(c) }}</p>
             <div class="dcw__bar"><span [style.width.%]="progressPct(c)"></span></div>
             <button *ngIf="c.isCompleted && !c.isClaimed" class="dcw__claim" (click)="claim(c)">
               +{{ c.xpReward }} XP
@@ -138,15 +138,35 @@ export class DailyChallengesWidgetComponent implements OnInit {
     return Math.min(100, Math.round((c.progress / c.targetValue) * 100));
   }
 
+  /**
+   * Quest title/description are seeded in English on the backend
+   * (services/interactiveGames/dailyChallenges.js) and stored per-student in
+   * Mongo, so they cannot be translated server-side without a data migration.
+   * Map them by challengeKey here; unknown keys fall back to the stored text.
+   */
+  private static readonly QUEST_TEXT: Record<string, { title: string; description: string }> = {
+    play_3_games: { title: 'Odigraj 3 igre', description: 'Završite 3 GlückArena igre danas' },
+    earn_50_xp: { title: 'Osvoji 50 XP', description: 'Osvojite najmanje 50 XP danas' },
+    perfect_accuracy: { title: 'Savršena runda', description: 'Završite jednu igru sa 100% preciznosti' },
+  };
+
+  challengeTitle(c: DailyChallengeProgress): string {
+    return DailyChallengesWidgetComponent.QUEST_TEXT[c.challengeKey]?.title ?? c.title ?? '';
+  }
+
+  challengeDescription(c: DailyChallengeProgress): string {
+    return DailyChallengesWidgetComponent.QUEST_TEXT[c.challengeKey]?.description ?? c.description ?? '';
+  }
+
   claim(c: DailyChallengeProgress) {
     this.svc.claimDailyChallenge(c._id).subscribe({
       next: (r) => {
         c.isClaimed = true;
         this.showConfetti = true;
         setTimeout(() => this.showConfetti = false, 2000);
-        this.notify.success(`+${r.xpReward} XP claimed!`);
+        this.notify.success(`+${r.xpReward} XP preuzeto!`);
       },
-      error: () => this.notify.error('Could not claim reward')
+      error: () => this.notify.error('Preuzimanje nagrade nije uspelo')
     });
   }
 }

@@ -12,8 +12,8 @@ import { AchievementDto } from '../../glueck-arena.types';
   template: `
     <div class="ap" data-ga-theme>
       <button mat-icon-button routerLink="/glueck-arena"><mat-icon>arrow_back</mat-icon></button>
-      <h1><mat-icon>emoji_events</mat-icon> Achievements</h1>
-      <p class="ap__sub">{{ unlockedCount }} / {{ achievements.length }} unlocked</p>
+      <h1><mat-icon>emoji_events</mat-icon> Dostignuća</h1>
+      <p class="ap__sub">{{ unlockedCount }} / {{ achievements.length }} otključano</p>
       <div class="ap__grid">
         <div class="ap__badge" *ngFor="let a of achievements" [class.ap__badge--locked]="!a.isUnlocked">
           <mat-icon class="ap__icon">{{ a.icon }}</mat-icon>

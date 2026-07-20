@@ -168,7 +168,7 @@ const DEADLINE_Y = 88;
 
           <div class="sr__line" aria-hidden="true">
 
-            <span class="sr__line-label">Answer before the line</span>
+            <span class="sr__line-label">Odgovorite pre linije</span>
 
           </div>
 
@@ -255,11 +255,11 @@ const DEADLINE_Y = 88;
 
               </mat-icon>
 
-              <h2>{{ phase === 'complete' ? 'Level Complete!' : 'Game Over' }}</h2>
+              <h2>{{ phase === 'complete' ? 'Nivo završen!' : 'Kraj igre' }}</h2>
 
               <div class="sr__overlay-calc">
                 <mat-icon class="sr__overlay-spinner">hourglass_top</mat-icon>
-                <span>Calculating results…</span>
+                <span>Računanje rezultata…</span>
               </div>
 
             </div>
@@ -294,7 +294,7 @@ const DEADLINE_Y = 88;
 
             spellcheck="false"
 
-            [placeholder]="'Type the unscrambled word (' + displayFallSeconds + 's)…'"
+            [placeholder]="'Unesite složenu reč (' + displayFallSeconds + 's)…'"
 
             inputmode="text"
 
@@ -306,7 +306,7 @@ const DEADLINE_Y = 88;
 
             [disabled]="!typedWord.trim() || phase !== 'playing'"
 
-            aria-label="Submit word">
+            aria-label="Pošalji reč">
 
             <mat-icon>send</mat-icon>
 

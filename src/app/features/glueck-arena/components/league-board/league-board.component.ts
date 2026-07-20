@@ -10,8 +10,8 @@ import { LeagueBoard } from '../../glueck-arena.types';
   imports: [CommonModule, MaterialModule],
   template: `
     <div class="lb" *ngIf="board">
-      <h2><mat-icon>emoji_events</mat-icon> {{ board.tier | titlecase }} League</h2>
-      <p class="lb__week">Week {{ board.weekKey }} · Top {{ board.promoteTop }} promote</p>
+      <h2><mat-icon>emoji_events</mat-icon> {{ board.tier | titlecase }} liga</h2>
+      <p class="lb__week">Nedelja {{ board.weekKey }} · Top {{ board.promoteTop }} napreduje</p>
 
       <div class="lb__podium" *ngIf="board.leaderboard.length >= 3">
         <div class="lb__place lb__place--2" *ngIf="board.leaderboard[1]">

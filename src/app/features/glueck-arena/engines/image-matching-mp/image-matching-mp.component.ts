@@ -24,13 +24,13 @@ import {
 
       <div class="immp__board" *ngIf="question && !answered">
         <div class="immp__image-area">
-          <img *ngIf="question.imageUrl" [src]="question.imageUrl" alt="Match the word" class="immp__image">
+          <img *ngIf="question.imageUrl" [src]="question.imageUrl" alt="Upari reč" class="immp__image">
           <div class="immp__no-image" *ngIf="!question.imageUrl">
             <mat-icon>image</mat-icon>
             <span>{{ question.word }}</span>
           </div>
         </div>
-        <p class="immp__question">Which word matches this image?</p>
+        <p class="immp__question">Koja reč odgovara ovoj slici?</p>
         <div class="immp__options">
           <button *ngFor="let opt of (question.options || [])" class="immp__option"
             [class.immp__option--selected]="selectedOption === opt"
@@ -50,11 +50,11 @@ import {
           <mat-icon>check_circle</mat-icon> +{{ lastPoints }} pts
         </div>
         <div class="immp__feedback immp__feedback--wrong" *ngIf="feedback === 'wrong'">
-          <mat-icon>cancel</mat-icon> {{ revealAnswer || 'Wrong' }}
+          <mat-icon>cancel</mat-icon> {{ revealAnswer || 'Netačno' }}
         </div>
       </div>
 
-      <div class="immp__waiting" *ngIf="answered">Waiting for next round…</div>
+      <div class="immp__waiting" *ngIf="answered">Čeka se sledeća runda…</div>
       <app-xp-float [xp]="lastPoints" [trigger]="xpTrigger"></app-xp-float>
       <app-confetti-burst [active]="showConfetti"></app-confetti-burst>
     </div>

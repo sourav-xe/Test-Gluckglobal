@@ -443,7 +443,7 @@ export class WhackawortComponent implements OnInit, OnDestroy {
     ctx.textAlign = 'center';
     ctx.font = 'bold 13px sans-serif';
     ctx.fillStyle = '#E8D5B7';
-    ctx.fillText('Score: ' + this.score, w * 0.55, 16);
+    ctx.fillText('Rezultat: ' + this.score, w * 0.55, 16);
     ctx.fillStyle = '#A8D8EA';
     ctx.fillText('Combo: x' + this.combo, w * 0.55, 40);
 

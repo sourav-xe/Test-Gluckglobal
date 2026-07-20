@@ -11,31 +11,31 @@ import { InteractiveGameService } from '../../services/interactive-game.service'
   template: `
     <div class="alh">
       <button mat-icon-button routerLink="/glueck-arena"><mat-icon>arrow_back</mat-icon></button>
-      <h1><mat-icon>psychology</mat-icon> My Learning Path</h1>
+      <h1><mat-icon>psychology</mat-icon> Moj put učenja</h1>
 
       <mat-card *ngIf="data">
         <mat-card-title>Mastery · {{ data.masteryScore || data.profile?.masteryScore || 0 }}%</mat-card-title>
         <mat-card-content>
-          <mat-chip [color]="riskColor">{{ data.retentionRisk || data.profile?.retentionRisk || 'low' }} retention risk</mat-chip>
-          <button mat-stroked-button (click)="refresh()" [disabled]="loading">Refresh analysis</button>
+          <mat-chip [color]="riskColor">{{ data.retentionRisk || data.profile?.retentionRisk || 'low' }} rizik od zaboravljanja</mat-chip>
+          <button mat-stroked-button (click)="refresh()" [disabled]="loading">Osveži analizu</button>
         </mat-card-content>
       </mat-card>
 
       <mat-card *ngIf="data?.weakVocabulary?.length">
-        <mat-card-title>Weak vocabulary</mat-card-title>
+        <mat-card-title>Slab vokabular</mat-card-title>
         <mat-card-content>
           <mat-chip *ngFor="let v of data.weakVocabulary">{{ v.label || v.key }} ({{ v.errorCount }})</mat-chip>
         </mat-card-content>
       </mat-card>
 
       <mat-card *ngIf="data?.weakGrammar?.length">
-        <mat-card-title>Weak sentence patterns</mat-card-title>
+        <mat-card-title>Slabi obrasci rečenica</mat-card-title>
         <mat-card-content>
           <p class="alh__grammar" *ngFor="let g of data.weakGrammar">{{ g.label || g.key }}</p>
         </mat-card-content>
       </mat-card>
 
-      <h3>Recommended practice</h3>
+      <h3>Preporučena vežba</h3>
       <div class="alh__rec" *ngFor="let g of data?.recommendations || []">
         <a [routerLink]="['/glueck-arena', g._id]">{{ g.title }}</a>
         <span>{{ g.gameType }}</span>

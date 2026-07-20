@@ -13,7 +13,7 @@ import { ArenaTournamentDto } from '../../glueck-arena.types';
     <div class="tl" [attr.data-ga-theme]="null">
       <div class="tl__head">
         <button mat-icon-button routerLink="/glueck-arena"><mat-icon>arrow_back</mat-icon></button>
-        <h1><mat-icon>emoji_events</mat-icon> Tournaments</h1>
+        <h1><mat-icon>emoji_events</mat-icon> Turniri</h1>
       </div>
       <mat-tab-group>
         <mat-tab label="Active">
@@ -23,12 +23,12 @@ import { ArenaTournamentDto } from '../../glueck-arena.types';
               <mat-card-subtitle>{{ t.gameType | titlecase }} · {{ t.status }}</mat-card-subtitle>
               <mat-card-content>
                 <p><mat-icon>schedule</mat-icon> {{ t.startsAt | date:'medium' }}</p>
-                <p>{{ t.participants?.length || 0 }} / {{ t.maxParticipants }} players</p>
+                <p>{{ t.participants?.length || 0 }} / {{ t.maxParticipants }} igrača</p>
                 <p class="tl__rewards" *ngIf="t.rewards">🏆 {{ t.rewards.xpFirst }} XP</p>
                 <div class="tl__countdown" *ngIf="countdown(t)">{{ countdown(t) }}</div>
               </mat-card-content>
             </mat-card>
-            <p *ngIf="!active.length" class="tl__empty">No active tournaments — check back soon!</p>
+            <p *ngIf="!active.length" class="tl__empty">Nema aktivnih turnira — vratite se uskoro!</p>
           </div>
         </mat-tab>
         <mat-tab label="History">
@@ -76,7 +76,7 @@ export class TournamentListComponent implements OnInit {
 
   countdown(t: ArenaTournamentDto): string {
     const ms = new Date(t.startsAt).getTime() - Date.now();
-    if (ms <= 0) return t.status === 'active' ? 'Live now' : 'Starting soon';
+    if (ms <= 0) return t.status === 'active' ? 'Uživo sada' : 'Uskoro počinje';
     const h = Math.floor(ms / 3600000);
     const m = Math.floor((ms % 3600000) / 60000);
     return `Starts in ${h}h ${m}m`;

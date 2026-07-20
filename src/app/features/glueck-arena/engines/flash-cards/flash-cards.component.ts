@@ -42,7 +42,7 @@ export interface FCResult {
 
       <div class="fc__card" *ngIf="phase === 'playing' && currentQuestion">
         <div class="fc__card-inner">
-          <div class="fc__prompt">{{ currentQuestion.hint || 'Translate this word' }}</div>
+          <div class="fc__prompt">{{ currentQuestion.hint || 'Prevedite ovu reč' }}</div>
           <div class="fc__word-display" *ngIf="!flipped">{{ currentQuestion.scrambledLetters?.join(' ') || currentQuestion.word || '***' }}</div>
           <div class="fc__reveal" *ngIf="flipped">{{ currentQuestion.word || currentQuestion.answerWord || '—' }}</div>
         </div>
@@ -61,19 +61,19 @@ export interface FCResult {
 
       <div class="fc__complete" *ngIf="phase === 'complete'">
         <mat-icon class="fc__complete-icon">emoji_events</mat-icon>
-        <h3>Session Complete!</h3>
+        <h3>Sesija završena!</h3>
         <div class="fc__stats">
           <div class="fc__stat">
             <span class="fc__stat-val">{{ score }}</span>
-            <span class="fc__stat-lbl">Score</span>
+            <span class="fc__stat-lbl">Rezultat</span>
           </div>
           <div class="fc__stat">
             <span class="fc__stat-val">{{ accuracy }}%</span>
-            <span class="fc__stat-lbl">Accuracy</span>
+            <span class="fc__stat-lbl">Preciznost</span>
           </div>
           <div class="fc__stat">
             <span class="fc__stat-val">{{ correctCount }}/{{ questions.length }}</span>
-            <span class="fc__stat-lbl">Correct</span>
+            <span class="fc__stat-lbl">Tačno</span>
           </div>
         </div>
       </div>

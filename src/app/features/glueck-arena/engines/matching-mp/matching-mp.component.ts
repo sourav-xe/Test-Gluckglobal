@@ -23,7 +23,7 @@ import {
       ></app-game-hud>
 
       <div class="mmp__board" *ngIf="question && !answered">
-        <p class="mmp__instruction">Match each item on the left with the correct one on the right</p>
+        <p class="mmp__instruction">Uparite svaku stavku sa leve strane sa odgovarajućom sa desne</p>
         <div class="mmp__pairs">
           <div class="mmp__pair" *ngFor="let pair of displayPairs; let i = index">
             <div class="mmp__left">{{ pair.left }}</div>
@@ -49,11 +49,11 @@ import {
           <mat-icon>check_circle</mat-icon> +{{ lastPoints }} pts
         </div>
         <div class="mmp__feedback mmp__feedback--wrong" *ngIf="feedback === 'wrong'">
-          <mat-icon>cancel</mat-icon> {{ revealAnswer || 'Incorrect match' }}
+          <mat-icon>cancel</mat-icon> {{ revealAnswer || 'Netačan par' }}
         </div>
       </div>
 
-      <div class="mmp__waiting" *ngIf="answered">Waiting for next round…</div>
+      <div class="mmp__waiting" *ngIf="answered">Čeka se sledeća runda…</div>
       <app-xp-float [xp]="lastPoints" [trigger]="xpTrigger"></app-xp-float>
       <app-confetti-burst [active]="showConfetti"></app-confetti-burst>
     </div>

@@ -6,6 +6,7 @@ import { MaterialModule } from '../../../../shared/material.module';
 import { InteractiveGameService } from '../../services/interactive-game.service';
 import { DigitalExerciseService } from '../../../../services/digital-exercise.service';
 import { GameSet, StudentGameStats, CatalogFilters, GameType, LeaderboardEntry } from '../../glueck-arena.types';
+import { formatGameTypeSr, formatDifficultySr, GAME_TYPE_ORDER } from '../../game-type-labels';
 import { GameStatsBannerComponent } from '../../shared/game-stats-banner/game-stats-banner.component';
 import { DailyChallengesWidgetComponent } from '../../shared/daily-challenges-widget/daily-challenges-widget.component';
 import { StreakFireComponent } from '../../shared/streak-fire/streak-fire.component';
@@ -30,8 +31,8 @@ function xpForLevel(level: number): number {
 
       <div *ngIf="accessChecked && !hasArenaAccess" class="arena__locked">
         <div class="arena__locked-icon"><mat-icon>lock</mat-icon></div>
-        <h2>GlückArena isn’t open for your class yet</h2>
-        <p>Your teacher hasn’t assigned any games to your batch. You’ll see this area once a game is published for you.</p>
+        <h2>GlückArena još nije otvorena za vaše odeljenje</h2>
+        <p>Vaš nastavnik još nije dodelio nijednu igru vašoj grupi. Videćete ovaj deo čim igra bude objavljena za vas.</p>
       </div>
 
       <ng-container *ngIf="hasArenaAccess">
@@ -45,7 +46,7 @@ function xpForLevel(level: number): number {
               <span class="arena-hero__logo"><mat-icon>sports_esports</mat-icon></span>
               <div>
                 <h1>GlückArena</h1>
-                <p>Level up dein Deutsch — challenge yourself, earn XP, climb the ranks</p>
+                <p>Podignite nivo svog nemačkog — izazovite sebe, osvajajte XP i penjite se na rang listi</p>
               </div>
             </div>
             <div class="arena-hero__right">
@@ -61,7 +62,7 @@ function xpForLevel(level: number): number {
               <app-streak-fire *ngIf="myStats" [streak]="myStats.currentStreak"></app-streak-fire>
               <a class="arena-hero__nav-link" routerLink="/glueck-arena/leaderboard">
                 <mat-icon>leaderboard</mat-icon>
-                <span>Leaderboard</span>
+                <span>Rang lista</span>
               </a>
             </div>
           </div>
@@ -79,7 +80,7 @@ function xpForLevel(level: number): number {
         <div class="arena-left-col">
           <div class="podium-card">
             <div class="podium-heading">
-              <mat-icon>emoji_events</mat-icon> Top Students
+              <mat-icon>emoji_events</mat-icon> Najbolji učenici
             </div>
             <div class="podium">
               <div class="podium__place podium__place--2">
@@ -118,8 +119,8 @@ function xpForLevel(level: number): number {
               </div>
             </div>
             <div class="podium__my-rank" *ngIf="myRank && myRank > 3">
-              You're #{{ myRank }} overall —
-              <a [routerLink]="['/glueck-arena/leaderboard']">see full board</a>
+              Vi ste #{{ myRank }} ukupno —
+              <a [routerLink]="['/glueck-arena/leaderboard']">pogledajte celu listu</a>
             </div>
           </div>
         <app-daily-challenges-widget></app-daily-challenges-widget>
@@ -131,7 +132,7 @@ function xpForLevel(level: number): number {
             <div class="arena-filters__search">
               <mat-icon>search</mat-icon>
               <input type="search" [(ngModel)]="filters.search" (ngModelChange)="onSearch()"
-                placeholder="Search games…" aria-label="Search games">
+                placeholder="Pretraži igre…" aria-label="Pretraži igre">
             </div>
             <div class="arena-filters__dropdown-wrap">
               <div class="arena-filters__dropdown" (click)="typeOpen = !typeOpen">
@@ -139,23 +140,9 @@ function xpForLevel(level: number): number {
                 <mat-icon>expand_more</mat-icon>
               </div>
               <div class="arena-filters__dropdown-menu" *ngIf="typeOpen">
-                <div class="arena-filters__dropdown-item" (click)="setType('')">All types</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('scramble_rush')">Scramble Rush</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('sentence_builder')">Sentence Builder</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('matching')">Matching</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('flashcards')">Flashcards</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('image_matching')">Image Matching</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('gender_stack')">Gender Stack</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('flapjugation')">Flapjugation</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('whackawort')">Whack-a-Wort</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('memory')">Memory Game</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('jumbled_words')">Jumbled Words</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('hangman')">Hangman</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('word_picture_match')">Word-Picture Match</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('multiple_choice')">Multiple Choice</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('spin_wheel')">Spin the Wheel</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('tap_boxes')">Tap the Boxes</div>
-                <div class="arena-filters__dropdown-item" (click)="setType('word_search')">Word Search</div>
+                <div class="arena-filters__dropdown-item" (click)="setType('')">Svi tipovi</div>
+                <div class="arena-filters__dropdown-item" *ngFor="let t of gameTypeOptions"
+                  (click)="setType(t)">{{ formatType(t) }}</div>
               </div>
             </div>
             <div class="arena-filters__dropdown-wrap">
@@ -164,7 +151,7 @@ function xpForLevel(level: number): number {
                 <mat-icon>expand_more</mat-icon>
               </div>
               <div class="arena-filters__dropdown-menu" *ngIf="levelOpen">
-                <div class="arena-filters__dropdown-item" (click)="setLevel('')">All levels</div>
+                <div class="arena-filters__dropdown-item" (click)="setLevel('')">Svi nivoi</div>
                 <div class="arena-filters__dropdown-item" *ngFor="let l of cefrLevels" (click)="setLevel(l)">{{ l }}</div>
               </div>
             </div>
@@ -174,10 +161,10 @@ function xpForLevel(level: number): number {
                 <mat-icon>expand_more</mat-icon>
               </div>
               <div class="arena-filters__dropdown-menu" *ngIf="diffOpen">
-                <div class="arena-filters__dropdown-item" (click)="setDiff('')">All</div>
-                <div class="arena-filters__dropdown-item" (click)="setDiff('Beginner')">Beginner</div>
-                <div class="arena-filters__dropdown-item" (click)="setDiff('Intermediate')">Intermediate</div>
-                <div class="arena-filters__dropdown-item" (click)="setDiff('Advanced')">Advanced</div>
+                <div class="arena-filters__dropdown-item" (click)="setDiff('')">Sve</div>
+                <div class="arena-filters__dropdown-item" (click)="setDiff('Beginner')">Početni</div>
+                <div class="arena-filters__dropdown-item" (click)="setDiff('Intermediate')">Srednji</div>
+                <div class="arena-filters__dropdown-item" (click)="setDiff('Advanced')">Napredni</div>
               </div>
             </div>
           </div>
@@ -194,7 +181,7 @@ function xpForLevel(level: number): number {
                 <img *ngIf="getThumbnailUrl(set) && !brokenThumbnails.has(set._id)" [src]="getThumbnailUrl(set)" alt="" class="arena-card__img" (error)="onThumbnailError(set)">
                 <mat-icon *ngIf="!getThumbnailUrl(set) || brokenThumbnails.has(set._id)" class="arena-card__glyph">{{ set.icon || 'sports_esports' }}</mat-icon>
                 <span class="arena-card__xp">+{{ set.xpReward }} XP</span>
-                <span class="arena-card__new" *ngIf="isNew(set)">NEW</span>
+                <span class="arena-card__new" *ngIf="isNew(set)">NOVO</span>
                 <span class="arena-card__play-ring" *ngIf="set.studentProgress?.bestScore">
                   <svg viewBox="0 0 36 36" width="24" height="24">
                     <path d="M18 2.0845a15.9155 15.9155 0 0 1 0 31.831a15.9155 15.9155 0 0 1 0-31.831"
@@ -208,31 +195,31 @@ function xpForLevel(level: number): number {
               <div class="arena-card__content">
                 <div class="arena-card__tags">
                   <span class="tag tag--type">{{ formatType(set.gameType) }}</span>
-                  <span class="tag" [class]="'tag--' + (set.difficulty | lowercase)">{{ set.difficulty }}</span>
+                  <span class="tag" [class]="'tag--' + (set.difficulty | lowercase)">{{ formatDifficulty(set.difficulty) }}</span>
                   <span class="tag tag--level" *ngIf="set.level">{{ set.level }}</span>
                 </div>
                 <h3>{{ set.title }}</h3>
                 <p>{{ set.description }}</p>
                 <div class="arena-card__meta">
                   <span><mat-icon>schedule</mat-icon> {{ set.estimatedDurationMinutes }} min</span>
-                  <span><mat-icon>quiz</mat-icon> {{ set.questionCount }} Q</span>
+                  <span><mat-icon>quiz</mat-icon> {{ set.questionCount }} pit.</span>
                 </div>
                 <div class="arena-card__record" *ngIf="set.studentProgress?.timesPlayed">
                   <mat-icon>workspace_premium</mat-icon>
-                  Best {{ set.studentProgress?.bestScore ?? 0 }} pts · {{ set.studentProgress?.timesPlayed }}× played
+                  Najbolje {{ set.studentProgress?.bestScore ?? 0 }} bod. · odigrano {{ set.studentProgress?.timesPlayed }}×
                 </div>
               </div>
               <button type="button" class="arena-card__play" (click)="$event.stopPropagation(); playGame(set)">
-                <mat-icon>play_arrow</mat-icon> Play now
+                <mat-icon>play_arrow</mat-icon> Igraj sada
               </button>
             </article>
           </div>
 
           <div *ngIf="!loading && !sets.length" class="arena-empty">
             <mat-icon>extension</mat-icon>
-            <h3>No games match your filters</h3>
-            <p>Try clearing filters or check back later for new modules.</p>
-            <button mat-stroked-button (click)="clearFilters()">Clear filters</button>
+            <h3>Nijedna igra ne odgovara vašim filterima</h3>
+            <p>Pokušajte da obrišete filtere ili se vratite kasnije po nove module.</p>
+            <button mat-stroked-button (click)="clearFilters()">Obriši filtere</button>
           </div>
 
           <mat-paginator
@@ -771,9 +758,9 @@ export class GameCatalogComponent implements OnInit {
     return ((this.myStats.totalXp - prev) / (cur - prev)) * 100;
   }
 
-  getTypeLabel(v: string | undefined): string { return v ? this.formatType(v as GameType) : 'Type'; }
-  getLevelLabel(v: string | undefined): string { return v || 'Level'; }
-  getDiffLabel(v: string | undefined): string { return v || 'Difficulty'; }
+  getTypeLabel(v: string | undefined): string { return v ? this.formatType(v as GameType) : 'Tip'; }
+  getLevelLabel(v: string | undefined): string { return v || 'Nivo'; }
+  getDiffLabel(v: string | undefined): string { return v ? this.formatDifficulty(v) : 'Težina'; }
   setType(v: string) { this.filters.gameType = v as GameType; this.typeOpen = false; this.load(); }
   setLevel(v: string) { this.filters.level = (v || undefined) as 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2' | undefined; this.levelOpen = false; this.load(); }
   setDiff(v: string) { this.filters.difficulty = v as 'Beginner' | 'Intermediate' | 'Advanced' | undefined; this.diffOpen = false; this.load(); }
@@ -908,22 +895,15 @@ export class GameCatalogComponent implements OnInit {
     return map[type] ?? 'linear-gradient(145deg, #1e3a5f, #64748b)';
   }
 
+  /** Order of the type filter dropdown; labels come from formatType(). */
+  readonly gameTypeOptions = GAME_TYPE_ORDER as GameType[];
+
   formatType(t: GameType): string {
-    const map: Record<string, string> = {
-      scramble_rush: 'Scramble Rush', sentence_builder: 'Sentence Builder',
-      matching: 'Matching', flashcards: 'Flashcards', image_matching: 'Image Matching',
-      gender_stack: 'Gender Stack', flapjugation: 'Flapjugation',
-      whackawort: 'Whack-a-Wort',
-      memory: 'Memory Game',
-      jumbled_words: 'Jumbled Words',
-      hangman: 'Hangman',
-      word_picture_match: 'Word-Picture Match',
-      multiple_choice: 'Multiple Choice',
-      spin_wheel: 'Spin the Wheel',
-      tap_boxes: 'Tap the Boxes',
-      word_search: 'Word Search',
-    };
-    return map[t] ?? t;
+    return formatGameTypeSr(t);
+  }
+
+  formatDifficulty(d: string | undefined): string {
+    return formatDifficultySr(d);
   }
 
   podiumPlayer(index: number): LeaderboardEntry | undefined {

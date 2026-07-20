@@ -84,7 +84,7 @@ export class BattlefieldGameService extends InteractiveGameService {
   override startAttempt(_gameSetId: string): Observable<StartAttemptResult> {
     const set: GameSet = {
       _id: _gameSetId,
-      title: 'Battlefield Game',
+      title: 'Igra na bojnom polju',
       gameType: this._gameType as GameSet['gameType'],
       description: '',
       difficulty: 'Intermediate',

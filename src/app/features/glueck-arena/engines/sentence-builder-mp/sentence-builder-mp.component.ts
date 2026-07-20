@@ -31,7 +31,7 @@ import {
         </div>
         <div class="sbmp__dropzone" cdkDropList id="mp-drop" [cdkDropListData]="arranged"
           [cdkDropListConnectedTo]="['mp-bank']" (cdkDropListDropped)="drop($event)">
-          <div class="sbmp__hint" *ngIf="!arranged.length">Drag words to build the sentence</div>
+          <div class="sbmp__hint" *ngIf="!arranged.length">Prevucite reči da sastavite rečenicu</div>
           <div cdkDrag class="sbmp__token sbmp__token--placed" *ngFor="let t of arranged"
             [class.sbmp__token--correct]="feedback === 'correct'"
             [class.sbmp__token--wrong]="feedback === 'wrong'">{{ t }}</div>
@@ -45,17 +45,17 @@ import {
           <span *ngIf="comboStreak >= 3" class="sbmp__combo">🔥 Combo x{{ comboStreak }}</span>
         </div>
         <div class="sbmp__feedback sbmp__feedback--wrong" *ngIf="feedback === 'wrong'">
-          <mat-icon>cancel</mat-icon> {{ revealSentence || 'Try again next round' }}
+          <mat-icon>cancel</mat-icon> {{ revealSentence || 'Pokušajte ponovo u sledećoj rundi' }}
         </div>
         <div class="sbmp__actions">
-          <button mat-stroked-button (click)="clearArranged()" [disabled]="!!feedback">Reset</button>
+          <button mat-stroked-button (click)="clearArranged()" [disabled]="!!feedback">Poništi</button>
           <button mat-raised-button color="primary" (click)="check()" [disabled]="!arranged.length || !!feedback || submitting">
             Check
           </button>
         </div>
       </div>
 
-      <div class="sbmp__waiting" *ngIf="answered">Waiting for next round…</div>
+      <div class="sbmp__waiting" *ngIf="answered">Čeka se sledeća runda…</div>
       <app-xp-float [xp]="lastPoints" [trigger]="xpTrigger"></app-xp-float>
       <app-confetti-burst [active]="showConfetti"></app-confetti-burst>
     </div>

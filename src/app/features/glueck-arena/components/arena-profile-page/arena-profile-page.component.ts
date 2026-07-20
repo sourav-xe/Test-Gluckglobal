@@ -19,28 +19,28 @@ import { StreakFireComponent } from '../../shared/streak-fire/streak-fire.compon
         </div>
         <div>
           <h1>{{ data.profile?.displayName || 'GlückArena Player' }}</h1>
-          <p>Level {{ data.stats?.arenaLevel || 1 }} · {{ data.stats?.totalXp || 0 }} XP</p>
+          <p>Nivo {{ data.stats?.arenaLevel || 1 }} · {{ data.stats?.totalXp || 0 }} XP</p>
           <app-streak-fire [streak]="data.stats?.currentStreak || 0"></app-streak-fire>
         </div>
       </div>
       <div class="ap__grid">
-        <mat-card><mat-card-title>Stats</mat-card-title>
+        <mat-card><mat-card-title>Statistika</mat-card-title>
           <mat-card-content>
             <p>Games: {{ data.stats?.gamesCompleted || 0 }}</p>
             <p>Accuracy: {{ data.stats?.accuracy || 0 }}%</p>
           </mat-card-content>
         </mat-card>
-        <mat-card *ngIf="data.league"><mat-card-title>League</mat-card-title>
-          <mat-card-content>{{ data.league.tier | titlecase }} · {{ data.league.weeklyXp }} XP this week</mat-card-content>
+        <mat-card *ngIf="data.league"><mat-card-title>Liga</mat-card-title>
+          <mat-card-content>{{ data.league.tier | titlecase }} · {{ data.league.weeklyXp }} XP ove nedelje</mat-card-content>
         </mat-card>
       </div>
-      <h3>Recent activity</h3>
+      <h3>Nedavna aktivnost</h3>
       <div class="ap__activity" *ngFor="let a of data.recentActivity">
         <strong>{{ $any(a).title }}</strong>
         <span>+{{ $any(a).xpEarned }} XP · {{ $any(a).accuracy }}%</span>
       </div>
-      <button mat-stroked-button routerLink="/glueck-arena/achievements">View badges</button>
-      <button mat-stroked-button routerLink="/glueck-arena/league">League board</button>
+      <button mat-stroked-button routerLink="/glueck-arena/achievements">Pogledaj značke</button>
+      <button mat-stroked-button routerLink="/glueck-arena/league">Tabela lige</button>
     </div>
     <mat-spinner *ngIf="!data" diameter="48"></mat-spinner>
   `,

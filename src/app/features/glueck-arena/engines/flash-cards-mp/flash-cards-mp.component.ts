@@ -35,7 +35,7 @@ import {
           <input #inputRef class="fcmp__input" type="text" [(ngModel)]="typedAnswer"
             (keyup.enter)="submit()" [disabled]="!!feedback"
             autocomplete="off" autocorrect="off" spellcheck="false"
-            placeholder="Type your answer…">
+            placeholder="Unesite odgovor…">
           <button mat-raised-button color="primary" (click)="submit()" [disabled]="!typedAnswer.trim() || !!feedback">
             <mat-icon>send</mat-icon>
           </button>
@@ -44,11 +44,11 @@ import {
           <mat-icon>check_circle</mat-icon> +{{ lastPoints }} pts
         </div>
         <div class="fcmp__feedback fcmp__feedback--wrong" *ngIf="feedback === 'wrong'">
-          <mat-icon>cancel</mat-icon> {{ revealAnswer || 'Wrong' }}
+          <mat-icon>cancel</mat-icon> {{ revealAnswer || 'Netačno' }}
         </div>
       </div>
 
-      <div class="fcmp__waiting" *ngIf="answered">Waiting for next round…</div>
+      <div class="fcmp__waiting" *ngIf="answered">Čeka se sledeća runda…</div>
 
       <app-xp-float [xp]="lastPoints" [trigger]="xpTrigger"></app-xp-float>
       <app-confetti-burst [active]="showConfetti"></app-confetti-burst>

@@ -72,17 +72,17 @@ export interface FJResult {
           <div class="fj__overlay-card">
             <ng-container [ngSwitch]="phase">
               <ng-container *ngSwitchCase="'idle'">
-                <h2>Flapjugation</h2>
-                <p>Tap to flap! Fly into the correct conjugation.</p>
-                <button mat-raised-button color="primary" (click)="startGame()">Start</button>
+                <h2>Konjugacija u letu</h2>
+                <p>Tapnite za let! Uletite u ispravnu konjugaciju.</p>
+                <button mat-raised-button color="primary" (click)="startGame()">Počni</button>
               </ng-container>
               <ng-container *ngSwitchCase="'gameover'">
-                <h2>Game Over</h2>
+                <h2>Kraj igre</h2>
                 <p>Score: {{ score }}</p>
-                <button mat-raised-button color="primary" (click)="startGame()">Play Again</button>
+                <button mat-raised-button color="primary" (click)="startGame()">Igraj ponovo</button>
               </ng-container>
               <ng-container *ngSwitchCase="'complete'">
-                <h2>Complete!</h2>
+                <h2>Završeno!</h2>
                 <p>Score: {{ score }} &middot; Accuracy: {{ accuracy }}%</p>
               </ng-container>
             </ng-container>

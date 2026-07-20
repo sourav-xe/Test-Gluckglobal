@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { serbianPlural } from '../../game-type-labels';
 
 @Component({
   selector: 'app-streak-fire',
@@ -9,7 +10,7 @@ import { CommonModule } from '@angular/common';
     <span class="sf" *ngIf="streak > 0" [class.sf--hot]="streak >= 7">
       <span class="sf__flame">🔥</span>
       <span class="sf__count">{{ streak }}</span>
-      <span class="sf__lbl">day streak</span>
+      <span class="sf__lbl">{{ streakLabel }} u nizu</span>
     </span>
   `,
   styles: [`
@@ -24,4 +25,8 @@ import { CommonModule } from '@angular/common';
 })
 export class StreakFireComponent {
   @Input() streak = 0;
+
+  get streakLabel(): string {
+    return serbianPlural(this.streak, 'dan', 'dana', 'dana');
+  }
 }

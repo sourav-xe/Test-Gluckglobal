@@ -11,7 +11,7 @@ import { NotificationService } from '../../../../services/notification.service';
   imports: [CommonModule, MaterialModule],
   template: `
     <div class="qh">
-      <h2><mat-icon>flag</mat-icon> Quests & Missions</h2>
+      <h2><mat-icon>flag</mat-icon> Zadaci i misije</h2>
       <mat-tab-group>
         <mat-tab label="Daily" *ngIf="daily.length">
           <div class="qh__list">
@@ -21,7 +21,7 @@ import { NotificationService } from '../../../../services/notification.service';
                 <p>{{ q.description }}</p>
                 <mat-progress-bar mode="determinate" [value]="progressPct(q)"></mat-progress-bar>
                 <span>{{ q.progress }} / {{ q.targetValue }}</span>
-                <button mat-raised-button color="primary" *ngIf="q.isCompleted && !q.isClaimed" (click)="claim(q._id)">Claim</button>
+                <button mat-raised-button color="primary" *ngIf="q.isCompleted && !q.isClaimed" (click)="claim(q._id)">Preuzmi</button>
                 <mat-icon *ngIf="q.isClaimed" class="qh__done">check_circle</mat-icon>
               </mat-card-content>
             </mat-card>
@@ -33,7 +33,7 @@ import { NotificationService } from '../../../../services/notification.service';
               <mat-card-title>{{ q.title }}</mat-card-title>
               <mat-card-content>
                 <mat-progress-bar mode="determinate" [value]="progressPct(q)"></mat-progress-bar>
-                <button mat-raised-button *ngIf="q.isCompleted && !q.isClaimed" (click)="claim(q._id)">Claim {{ q.xpReward }} XP</button>
+                <button mat-raised-button *ngIf="q.isCompleted && !q.isClaimed" (click)="claim(q._id)">Preuzmi {{ q.xpReward }} XP</button>
               </mat-card-content>
             </mat-card>
           </div>
@@ -44,7 +44,7 @@ import { NotificationService } from '../../../../services/notification.service';
               <mat-card-title>{{ q.title }}</mat-card-title>
               <mat-card-content>
                 <mat-progress-bar mode="determinate" [value]="progressPct(q)"></mat-progress-bar>
-                <button mat-stroked-button *ngIf="q.isCompleted && !q.isClaimed" (click)="claim(q._id)">Claim reward</button>
+                <button mat-stroked-button *ngIf="q.isCompleted && !q.isClaimed" (click)="claim(q._id)">Preuzmi nagradu</button>
               </mat-card-content>
             </mat-card>
           </div>
@@ -80,8 +80,8 @@ export class QuestsHubComponent implements OnInit {
 
   claim(id: string) {
     this.svc.claimQuest(id).subscribe({
-      next: () => { this.notify.success('Quest claimed!'); this.ngOnInit(); },
-      error: (e) => this.notify.error(e?.error?.message || 'Failed')
+      next: () => { this.notify.success('Zadatak je preuzet!'); this.ngOnInit(); },
+      error: (e) => this.notify.error(e?.error?.message || 'Nije uspelo')
     });
   }
 }
